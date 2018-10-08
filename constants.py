@@ -1,4 +1,14 @@
-# Achievement Constants
+Human = 1
+Orc = 2
+Dwarf = 3
+Night_Elf = 4
+Undead = 5
+Tauren = 6
+Gnome = 7
+Troll = 8
+Blood_Elf = 10
+Draenei = 11
+
 AC_KEYSTONE_MASTER = 11162
 AC_KEYSTONE_CONQUEROR = 11185
 AC_KEYSTONE_CHALLENGER = 11184
@@ -14,27 +24,12 @@ AC_FIRST_SERGEANT = 5349
 AC_GRAND_MARSHALL = 5343
 AC_LIEUTENANT_COMMANDER = 5339
 AC_SERGEANT_MAJOR = 5334
-
-# Achievement Title Constants
 AC_HIGH_WARLORD_NAME = 'High Warlord'
 AC_CHAMPION_NAME = 'Champion'
 AC_FIRST_SERGEANT_NAME = 'First Sergeant'
 AC_GRAND_MARSHALL_NAME = 'Grand Marshall'
 AC_LIEAUTENANT_COMMANDER_NAME = 'Lieutenant Commander'
 AC_SERGEANT_MAJOR_NAME = 'Sergeant Major'
-
-# Raid Constants
-RAID_UD = 9389
-
-# Faction Constants
-FACTION_HORDE = 1
-FACTION_ALLIANCE = 0
-
-# Faction Name Constants
-FACTION_HORDE_NAME = 'Horde'
-FACTION_ALLIANCE_NAME = 'Alliance'
-
-# Classs Constants
 CLASS_WARRIOR = 1
 CLASS_PALADIN = 2
 CLASS_HUNTER = 3
@@ -47,22 +42,6 @@ CLASS_WARLOCK = 9
 CLASS_MONK = 10
 CLASS_DRUID = 11
 CLASS_DEMON_HUNTER = 12
-
-# Class Name Constants
-CLASS_WARRIOR_NAME = 'Warrior'
-CLASS_PALADIN_NAME = 'Paladin'
-CLASS_HUNTER_NAME = 'Hunter'
-CLASS_ROGUE_NAME = 'Rogue'
-CLASS_PRIEST_NAME = 'Priest'
-CLASS_DEATH_KNIGHT_NAME = 'Death Knight'
-CLASS_SHAMAN_NAME = 'Shaman'
-CLASS_MAGE_NAME = 'Mage'
-CLASS_WARLOCK_NAME = 'Warlock'
-CLASS_MONK_NAME = 'Monk'
-CLASS_DRUID_NAME = 'Druid'
-CLASS_DEMON_HUNTER_NAME = 'Demon Hunter'
-
-# Class Colour Constants
 CLASS_WARRIOR_COLOUR = 0xC79C6E
 CLASS_PALADIN_COLOUR = 0xF58CBA
 CLASS_HUNTER_COLOUR = 0xABD473
@@ -103,17 +82,6 @@ def get_class_color(x):
 		return CLASS_DEMON_HUNTER_COLOUR
 	else:
 		return CLASS_WARRIOR_COLOUR
-
-Human = 1
-Orc = 2
-Dwarf = 3
-Night_Elf = 4
-Undead = 5
-Tauren = 6
-Gnome = 7
-Troll = 8
-Blood_Elf = 10
-Draenei = 11
 
 def get_race(x):
 	if x == Human:

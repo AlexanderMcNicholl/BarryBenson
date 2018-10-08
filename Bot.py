@@ -229,14 +229,5 @@ async def on_ready():
     print(client.user.id)
     print('------')
 
-@client.command(pass_context=True)
-async def venom(ctx):
-    author = ctx.message.author
-    voice_channel = author.voice_channel
-    vc = await client.join_voice_channel(voice_channel)
-
-    player = await vc.create_ytdl_player("https://www.youtube.com/watch?v=8CdcCD5V-d8")
-    player.start()
-
 client.run(TOKEN)
 # https://www.youtube.com/watch?v=8CdcCD5V-d8
