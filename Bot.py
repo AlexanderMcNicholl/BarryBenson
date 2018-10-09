@@ -14,37 +14,15 @@ from chatterbot import ChatBot
 import logging
 import random
 import time
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
 from get_wow_data import get_data, get_json_info
 from settings import WOW_API_KEY
 import json
 from constants import get_race, get_class, get_class_color
 
-# browser = webdriver.Chrome()
-# base_url = u'https://twitter.com/'
-# query = u'realDonaldTrump'
-# url = base_url+query
-
-# browser.get(url)
-# time.sleep(1)
-
-# body = browser.find_element_by_tag_name('body')
-
-# for _ in range(5):
-# 	body.send_keys(Keys.PAGE_DOWN)
-# 	time.sleep(0.2)
-
-# tweets = browser.find_elements_by_class_name('tweet-text')
-
 # Chatterbot
 chatbot = ChatBot('Lil Bitch')
-# chatbot.set_trainer(ChatterBotCorpusTrainer)
+chatbot.set_trainer(ChatterBotCorpusTrainer)
 # chatbot.train("chatterbot.corpus.english")
-
-# Train bmovie script
-# chatbot.set_trainer(ListTrainer)
-# chatbot.train('bmovie.txt')
 
 filename = 'quotes.txt'
 song = 'songs.txt'
@@ -72,25 +50,6 @@ async def get_logs_from(channel):
 	f = open("tdata.txt", "a")
 	async for m in client.logs_from(channel):
 		f.write(m.clean_content + '\n')
-
-# @client.command(pass_context=True, name='tweet')
-# async def read_tweet(ctx):
-# 	tweet = random.choice(tweets).text
-# 	await client.send_message(ctx.message.channel, tweet, tts=True)
-
-# @client.event
-# async def on_message(message):
-# 	if message.author.name == 'Derh_Kye':
-# 		await client.send_message(message.channel, 'Okay Jett, this is a pre-written message, I will not let you infect my baby with your foul language, cunt. Please stay away from me and my family. Understandable have a nice day.')
-# 		return
-# 	if message.content.startswith('!'):
-# 		return
-# 	elif message.content.startswith('-'):
-# 		return
-# 	if not message.author == client.user and not message.content.startswith('$'):
-# 		await client.send_message(message.channel, chatbot.get_response(message.content), tts=True)
-
-
 
 @client.command(pass_context=True, name='stat')
 async def get_character_info(ctx, *msg):
