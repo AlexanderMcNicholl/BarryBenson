@@ -42,6 +42,11 @@ async def get_logs_from(channel):
 	async for m in client.logs_from(channel):
 		f.write(m.clean_content + '\n')
 
+@client.command(pass_context=True, name='stat')
+async def get_character_statistics(ctx, *msg):
+	await client.say("Fetching statistics information for {}".format(msg[0]))
+	data = get_data(msg[0], msg[1])
+	if len(data) == 0:
 		embed.set_thumbnail(url="https://i.pinimg.com/236x/b8/f6/77/b8f677570e6edb5aabd5d75ddf563e05--koala-bears-baby-koala.jpg")
 		await client.say(embed=embed)
 		return
@@ -67,7 +72,7 @@ async def get_character_professions(ctx, *msg):
 	data = get_data(msg[0], msg[1])
 	if len(data) == 0:
 		embed = discord.Embed(title="Error", description="O shit boi, aint no character wit dat name", color=0x00ff00)
-		embed.add_field(name="Incorrect Player Name", value="Error 404, Bad URL, Character {} not found".format(msg), inline=True)
+		embed.add_field(name="Incorrect Player Name", value="Error 404: Bad URL, Character {} not found".format(msg), inline=True)
 		embed.set_thumbnail(url="https://i.pinimg.com/236x/b8/f6/77/b8f677570e6edb5aabd5d75ddf563e05--koala-bears-baby-koala.jpg")
 		await client.say(embed=embed)
 		return
@@ -154,10 +159,9 @@ async def magic_eight_ball(ctx, msg):
 @client.event
 async def on_ready():
 	await client.change_presence(game=discord.Game(name='With My Large Wang.'))
-    print('Logged in as')
-    print(client.user.name)
-    print(client.user.id)
-    print('------')
+	print('Logged in as')
+	print(client.user.name)
+	print(client.user.id)
+	print('------')
 
 client.run(TOKEN)
-# https://www.youtube.com/watch?v=8CdcCD5V-d8
