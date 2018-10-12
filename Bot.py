@@ -43,9 +43,13 @@ async def get_logs_from(channel):
 		f.write(m.clean_content + '\n')
 
 @client.command(pass_context=True, name='stat')
-async def get_character_statistics(ctx, *msg):
-	await client.say("Fetching statistics information for {}".format(msg[0]))
-	data = get_data(msg[0], msg[1])
+async def get_character_info(ctx, *msg):
+	await client.say("Fetching character information for {}".format(msg[0]))
+	if len(msg) > 1:
+		realm = msg[1]
+	else:
+		realm = "khazgoroth"
+	data = get_data(msg[0], realm)
 	if len(data) == 0:
 		embed.set_thumbnail(url="https://i.pinimg.com/236x/b8/f6/77/b8f677570e6edb5aabd5d75ddf563e05--koala-bears-baby-koala.jpg")
 		await client.say(embed=embed)
