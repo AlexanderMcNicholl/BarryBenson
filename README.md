@@ -6,7 +6,7 @@ The ```$stat [playername] [player realm]``` command will display player infromat
 
 ![Example Image](images/STAT_EXAMPLE.png)
 
-# World of Warcraft Statistics
+# World of Warcraft Professions
 ## Usage
 ```
 $prof [playername] [realm]
