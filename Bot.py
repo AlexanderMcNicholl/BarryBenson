@@ -1,5 +1,3 @@
-# https://discordapp.com/oauth2/authorize?client_id=486395215859679265&scope=bot
-
 from discord.ext.commands import Bot
 from itertools import cycle
 import random
@@ -7,10 +5,6 @@ import discord
 import numpy as np
 import asyncio
 import threading
-from chatterbot import ChatBot
-from chatterbot.trainers import ChatterBotCorpusTrainer
-from chatterbot.trainers import ListTrainer
-from chatterbot import ChatBot
 import logging
 import random
 import time
@@ -18,11 +12,6 @@ from get_wow_data import get_data, get_json_info
 from settings import WOW_API_KEY
 import json
 from constants import get_race, get_class, get_class_color
-
-# Chatterbot
-chatbot = ChatBot('Lil Bitch')
-chatbot.set_trainer(ChatterBotCorpusTrainer)
-# chatbot.train("chatterbot.corpus.english")
 
 filename = 'quotes.txt'
 song = 'songs.txt'
@@ -42,6 +31,8 @@ selections = [
 	'maybe I don\'t care'
 ]
 
+blacklist = "blacklist.txt"
+
 client = Bot(command_prefix=BOT_PREFIX)
 
 TOKEN = 'NDg2Mzk1MjE1ODU5Njc5MjY1.DpYMDA.yNi3WCOTofVzbQbHCxSS6lvZYbk'
@@ -51,17 +42,6 @@ async def get_logs_from(channel):
 	async for m in client.logs_from(channel):
 		f.write(m.clean_content + '\n')
 
-@client.command(pass_context=True, name='stat')
-async def get_character_info(ctx, *msg):
-	await client.say("Fetching character information for {}".format(msg[0]))
-	if len(msg) > 1:
-		realm = msg[1]
-	else:
-		realm = "khazgoroth"
-	data = get_data(msg[0], realm)
-	if len(data) == 0:
-		embed = discord.Embed(title="Error", description="O shit boi, aint no character wit dat name", color=0x00ff00)
-		embed.add_field(name="Incorrect Player Name", value="Error 404, Bad URL, Character {} not found".format(msg), inline=True)
 		embed.set_thumbnail(url="https://i.pinimg.com/236x/b8/f6/77/b8f677570e6edb5aabd5d75ddf563e05--koala-bears-baby-koala.jpg")
 		await client.say(embed=embed)
 		return
@@ -82,9 +62,9 @@ async def get_character_info(ctx, *msg):
 	await client.say(embed=embed)
 
 @client.command(pass_context=True, name='prof')
-async def get_character_professions(ctx, msg):
+async def get_character_professions(ctx, *msg):
 	await client.say("Fetching profession information for {}".format(msg[0]))
-	data = get_data(msg, "khazgoroth")
+	data = get_data(msg[0], msg[1])
 	if len(data) == 0:
 		embed = discord.Embed(title="Error", description="O shit boi, aint no character wit dat name", color=0x00ff00)
 		embed.add_field(name="Incorrect Player Name", value="Error 404, Bad URL, Character {} not found".format(msg), inline=True)
@@ -117,16 +97,6 @@ async def get_character_professions(ctx, msg):
 		embed.add_field(name="Secondary Professions", value=(''.join(prof_sec)), inline=False)
 	embed.set_thumbnail(url=icon_image)
 	await client.say(embed=embed)
-
-@client.command(pass_context=True, name='s')
-async def speak(ctx, msg):
-	txt = ctx.message.content.replace('$s ', '')
-	response = (chatbot.get_response(txt))
-	print('-----------------------')
-	print('User: {}'.format(txt))
-	print('Bot: {}'.format(response))
-	print('-----------------------')
-	await client.send_message(ctx.message.channel, response, tts=True)
 
 @client.command(pass_context=True, name='newquote')
 async def add_quote(ctx, msg):
@@ -183,6 +153,7 @@ async def magic_eight_ball(ctx, msg):
 
 @client.event
 async def on_ready():
+	await client.change_presence(game=discord.Game(name='With My Large Wang.'))
     print('Logged in as')
     print(client.user.name)
     print(client.user.id)
