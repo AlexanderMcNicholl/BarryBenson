@@ -80,12 +80,12 @@ async def get_character_professions(ctx, *msg):
 	data = get_data(msg[0], realm)
 	if len(data) == 0:
 		embed = discord.Embed(title="Error", description="O shit boi, aint no character wit dat name", color=0x00ff00)
-		embed.add_field(name="Incorrect Player Name", value="Error 404: Bad URL, Character {} not found".format(msg), inline=True)
+		embed.add_field(name="Incorrect Player Name", value="Error 404: Bad URL, Character {} not found".format(msg[0]), inline=True)
 		embed.set_thumbnail(url="https://i.pinimg.com/236x/b8/f6/77/b8f677570e6edb5aabd5d75ddf563e05--koala-bears-baby-koala.jpg")
 		await client.say(embed=embed)
 		return
 	icon_image = "http://render-us.worldofwarcraft.com/character/{}".format(data['thumbnail'])
-	professions = get_json_info("https://us.api.battle.net/wow/character/{}/{}?fields=professions&locale=en_US&apikey=7q2yab7gha6jfdzj7tca472bnyvs3x9h".format(realm, msg))
+	professions = get_json_info("https://us.api.battle.net/wow/character/{}/{}?fields=professions&locale=en_US&apikey=7q2yab7gha6jfdzj7tca472bnyvs3x9h".format(realm, msg[0]))
 	primary = professions["professions"]["primary"]
 	secondary = professions["professions"]["secondary"]
 	color = get_class_color(data['class'])
