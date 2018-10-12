@@ -73,6 +73,10 @@ async def get_character_info(ctx, *msg):
 @client.command(pass_context=True, name='prof')
 async def get_character_professions(ctx, *msg):
 	await client.say("Fetching profession information for {}".format(msg[0]))
+	if len(msg) > 1:
+		realm = msg[1]
+	else:
+		realm = "khazgoroth"
 	data = get_data(msg[0], msg[1])
 	if len(data) == 0:
 		embed = discord.Embed(title="Error", description="O shit boi, aint no character wit dat name", color=0x00ff00)
@@ -81,7 +85,7 @@ async def get_character_professions(ctx, *msg):
 		await client.say(embed=embed)
 		return
 	icon_image = "http://render-us.worldofwarcraft.com/character/{}".format(data['thumbnail'])
-	professions = get_json_info("https://us.api.battle.net/wow/character/khazgoroth/{}?fields=professions&locale=en_US&apikey=7q2yab7gha6jfdzj7tca472bnyvs3x9h".format(msg))
+	professions = get_json_info("https://us.api.battle.net/wow/character/{}/{}?fields=professions&locale=en_US&apikey=7q2yab7gha6jfdzj7tca472bnyvs3x9h".format(realm, msg))
 	primary = professions["professions"]["primary"]
 	secondary = professions["professions"]["secondary"]
 	color = get_class_color(data['class'])
