@@ -77,7 +77,7 @@ async def get_character_professions(ctx, *msg):
 		realm = msg[1]
 	else:
 		realm = "khazgoroth"
-	data = get_data(msg[0], msg[1])
+	data = get_data(msg[0], realm)
 	if len(data) == 0:
 		embed = discord.Embed(title="Error", description="O shit boi, aint no character wit dat name", color=0x00ff00)
 		embed.add_field(name="Incorrect Player Name", value="Error 404: Bad URL, Character {} not found".format(msg), inline=True)
