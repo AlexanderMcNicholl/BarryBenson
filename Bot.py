@@ -14,7 +14,6 @@ from settings import WOW_API_KEY
 import json
 from constants import get_race, get_class, get_class_color
 
-filename = 'quotes.txt'
 song = 'songs.txt'
 
 BOT_PREFIX = "$"
@@ -133,38 +132,7 @@ async def get_character_professions(ctx, *msg):
 	embed.set_thumbnail(url=icon_image)
 	await client.say(embed=embed)
 
-@client.command(pass_context=True, name='newquote')
-async def add_quote(ctx, msg):
-	txt = ctx.message.content.replace('$newquote ', '')
-	f = open(filename, "a")
-	f.write(txt)
-	f.write("\n")
-	await client.say('quote saved.')
-	f.close()
-
-@client.command(pass_context=True, name='addsong')
-async def add_song(ctx, msg):
-	txt = ctx.message.content.replace('$addsong ', '')
-	f = open(song, "a")
-	f.write(txt)
-	f.write("\n")
-	await client.say('song saved.')
-	f.close()
-
-@client.command(pass_context=True, name='quote')
-async def choose_quote(ctx):
-	quotes = []
-	fh = open(filename)
-	while True:
-	    line = fh.readline()
-	    if not line or line == '':
-	        break
-	    quotes.append(line)
-	fh.close()
-	quote = random.choice(quotes)
-	await client.send_message(ctx.message.channel, quote, tts=True)
-
-@client.command(pass_context=True, name='playsong')
+@client.command(pass_context=True, name='p')
 async def play_song(ctx):
 	songs = []
 	fh = open(song)
@@ -186,6 +154,10 @@ async def play_song(ctx):
 async def magic_eight_ball(ctx, msg):
 	await client.send_message(ctx.message.channel, random.choice(selections), tts=True)
 
+@client.command(pass_context=True, name='pm')
+async def change_playing_message(ctx, *msg):
+	await client.change_presence(game=discord.Game(name=" ".join(msg)))
+
 @client.event
 async def on_ready():
 	await client.change_presence(game=discord.Game(name='With My Large Wang.'))
@@ -195,5 +167,4 @@ async def on_ready():
 	print('------')
 
 client.run(TOKEN)
-
 # https://discordapp.com/oauth2/authorize?&client_id=486395215859679265&scope=bot&permissions=0
