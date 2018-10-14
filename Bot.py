@@ -13,10 +13,13 @@ from get_wow_data import get_data, get_json_info
 from settings import WOW_API_KEY, TOKEN
 import json
 from constants import get_race, get_class, get_class_color
+import os
 
+os.chdir(r'C:\\Users\\Alexa\\OneDrive\\Documents\\Bee-Bot\\BOT\\Git\\BarryBenson')
 song = 'songs.txt'
-
 BOT_PREFIX = "$"
+vote_count = 5
+client = Bot(command_prefix=BOT_PREFIX)
 
 selections = [
 	'No', 'All of the time',
@@ -31,15 +34,48 @@ selections = [
 	'maybe I don\'t care'
 ]
 
-vote_count = 5
-
-client = Bot(command_prefix=BOT_PREFIX)
-
-
 async def get_logs_from(channel):
 	f = open("tdata.txt", "a")
 	async for m in client.logs_from(channel):
 		f.write(m.clean_content + '\n')
+
+@client.event
+async def on_member_join(member):
+	with open('members.json', 'r') as f:
+		users = json.load(f)
+	await update_json(users, member)
+	with open('members.json', 'w') as f:
+		json.dump(users, f)
+
+@client.event
+async def on_message(message):
+	with open('members.json', 'r') as f:
+		users = json.load(f)
+	await update_json(users, message.author)
+	await add_exp(users, message.author, 5)
+	await update_level(users, message.author, message.channel)
+	with open('members.json', 'w') as f:
+		json.dump(users, f)
+
+async def update_json(users, user):
+	if not user.id in users:
+		users[user.id] = {}
+		current_user = users[user.id]
+		current_user['level'] = 1
+		current_user['experience'] = 0
+
+async def add_exp(users, user, exp):
+	current_user = users[user.id]
+	current_user['experience'] += exp
+
+async def update_level(users, user, channel):
+	current_user = users[user.id]
+	experience = current_user['experience']
+	level_start = current_user['level']
+	end_level = int(experience ** (1/4))
+	if level_start < end_level:
+		current_user['level'] = end_level
+		await client.send_message(channel, 'O SHIT NIGGA, {} JUST BAMBOOZLED HIS WAS INTO {}.'.format(user.mention, end_level))
 
 @client.event
 async def on_reaction_add(reaction, user):
