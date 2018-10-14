@@ -72,6 +72,8 @@ async def get_character_info(ctx, *msg):
 		realm = "khazgoroth"
 	data = get_data(msg[0], realm)
 	if len(data) == 0:
+		embed = discord.Embed(title="Error", description="O shit boi, aint no character wit dat name", color=0x00ff00)
+		embed.add_field(name="Incorrect Player Name", value="Error 404: Bad URL, Character {} not found".format(msg[0]), inline=True)
 		embed.set_thumbnail(url="https://i.pinimg.com/236x/b8/f6/77/b8f677570e6edb5aabd5d75ddf563e05--koala-bears-baby-koala.jpg")
 		await client.say(embed=embed)
 		return
