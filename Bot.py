@@ -15,7 +15,6 @@ import json
 from constants import get_race, get_class, get_class_color
 import os
 
-#os.chdir(r'C:\\Users\\Administrator\\Documents\\BarryBenson')
 song = 'songs.txt'
 BOT_PREFIX = "$"
 vote_count = 5
