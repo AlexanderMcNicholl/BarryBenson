@@ -132,6 +132,39 @@ async def get_character_professions(ctx, *msg):
 	embed.set_thumbnail(url=icon_image)
 	await client.say(embed=embed)
 
+@client.command(pass_context=True, name='auc')
+async def get_auction_house_data(ctx, *msg):
+	item = msg[0]
+	print("Searching for {}".format(int(item)))
+	# if len(msg[1]) > 0:
+	# 	realm = msg[1]
+	# else:
+	realm = "Khazgoroth"
+	await client.say("Loading {} from {}...".format(item, realm))
+	url = "https://us.api.battle.net/wow/auction/data/{}?locale=en_US&apikey=7q2yab7gha6jfdzj7tca472bnyvs3x9h".format(realm)
+	return_data = get_json_info(url)
+	auction_data = get_json_info(return_data["files"][0]["url"])
+	test_item = None
+	for i in auction_data['auctions']:
+		if int(i['item']) == int(item):
+			test_item = i
+			await client.say("Item Found!")
+			break
+	if test_item == None:
+		await client.say("Item Not Found on Auction House")
+		return
+	item_retrieval = get_json_info("https://us.api.battle.net/wow/item/{}?locale=en_US&apikey=7q2yab7gha6jfdzj7tca472bnyvs3x9h".format(test_item['item']))
+	item_icon = "https://wow.zamimg.com/images/wow/icons/large/{}.jpg".format(item_retrieval['icon'])
+	embed = discord.Embed(title="Auction Item", description=item_retrieval["name"], color=0x4259f4)
+	embed.add_field(name="Owner", value=test_item['owner'], inline=False)
+	if not item_retrieval['description'] == "":
+		embed.add_field(name="Description", value=item_retrieval['description'], inline=False)
+	embed.add_field(name="Price", value="{} Bid\n{} Buyout\nP.S. It obviously isn't a bizillion dollars for this trash but I cant figure what these numbers mean. It is a JSON element called 'bid' and 'buyout' so it has something to do with the price.".format(test_item["bid"], test_item["buyout"]), inline=False)
+	embed.add_field(name="Amount", value=test_item['quantity'], inline=False)
+	embed.add_field(name="Time Left", value=test_item["timeLeft"], inline=False)
+	embed.set_thumbnail(url=item_icon)
+	await client.say(embed=embed)
+
 @client.command(pass_context=True, name='p')
 async def play_song(ctx):
 	songs = []
