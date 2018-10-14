@@ -24,6 +24,3 @@ def get_json_info(path):
         request_json = ''
         print(error)
     return request_json
-
-# https://us.api.battle.net/wow/character/khazgoroth/Adama?locale=en_US&apikey=7q2yab7gha6jfdzj7tca472bnyvs3x9h
-# http://render-us.worldofwarcraft.com/character/

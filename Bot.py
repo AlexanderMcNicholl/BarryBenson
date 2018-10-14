@@ -10,7 +10,7 @@ import logging
 import random
 import time
 from get_wow_data import get_data, get_json_info
-from settings import WOW_API_KEY
+from settings import WOW_API_KEY, TOKEN
 import json
 from constants import get_race, get_class, get_class_color
 
@@ -35,7 +35,6 @@ vote_count = 5
 
 client = Bot(command_prefix=BOT_PREFIX)
 
-TOKEN = 'NDg2Mzk1MjE1ODU5Njc5MjY1.DpYMDA.yNi3WCOTofVzbQbHCxSS6lvZYbk'
 
 async def get_logs_from(channel):
 	f = open("tdata.txt", "a")
@@ -108,7 +107,7 @@ async def get_character_professions(ctx, *msg):
 		await client.say(embed=embed)
 		return
 	icon_image = "http://render-us.worldofwarcraft.com/character/{}".format(data['thumbnail'])
-	professions = get_json_info("https://us.api.battle.net/wow/character/{}/{}?fields=professions&locale=en_US&apikey=7q2yab7gha6jfdzj7tca472bnyvs3x9h".format(realm, msg[0]))
+	professions = get_json_info("https://us.api.battle.net/wow/character/{}/{}?fields=professions&locale=en_US&apikey={}".format(realm, msg[0], WOW_API_KEY))
 	primary = professions["professions"]["primary"]
 	secondary = professions["professions"]["secondary"]
 	color = get_class_color(data['class'])
@@ -143,7 +142,7 @@ async def get_auction_house_data(ctx, *msg):
 	# else:
 	realm = "Khazgoroth"
 	await client.say("Loading {} from {}...".format(item, realm))
-	url = "https://us.api.battle.net/wow/auction/data/{}?locale=en_US&apikey=7q2yab7gha6jfdzj7tca472bnyvs3x9h".format(realm)
+	url = "https://us.api.battle.net/wow/auction/data/{}?locale=en_US&apikey={}".format(realm, WOW_API_KEY)
 	return_data = get_json_info(url)
 	auction_data = get_json_info(return_data["files"][0]["url"])
 	test_item = None
@@ -155,7 +154,7 @@ async def get_auction_house_data(ctx, *msg):
 	if test_item == None:
 		await client.say("Item Not Found on Auction House")
 		return
-	item_retrieval = get_json_info("https://us.api.battle.net/wow/item/{}?locale=en_US&apikey=7q2yab7gha6jfdzj7tca472bnyvs3x9h".format(test_item['item']))
+	item_retrieval = get_json_info("https://us.api.battle.net/wow/item/{}?locale=en_US&apikey={}".format(test_item['item'], WOW_API_KEY))
 	item_icon = "https://wow.zamimg.com/images/wow/icons/large/{}.jpg".format(item_retrieval['icon'])
 	embed = discord.Embed(title="Auction Item", description=item_retrieval["name"], color=0x4259f4)
 	embed.add_field(name="Owner", value=test_item['owner'], inline=False)
