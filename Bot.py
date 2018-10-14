@@ -74,7 +74,13 @@ async def update_level(users, user, channel):
 	end_level = int(experience ** (1/4))
 	if level_start < end_level:
 		current_user['level'] = end_level
-		await client.send_message(channel, 'O SHIT NIGGA, {} JUST BAMBOOZLED HIS WAS INTO {}.'.format(user.mention, end_level))
+		if end_level <= 2:
+			await client.send_message(channel, 'O SHIT NIGGA, {} JUST BAMBOOZLED HIS WAY INTO {}.'.format(user.mention, end_level))
+		elif end_level > 2 and end_level < 5:
+			await client.send_message(channel, "Fuck, we got ourselfs a big boi here. Lil old dumb cunt {} has reached level {}. What a little bitch".format(user.mention, end_level))
+		elif end_level >= 5:
+			await client.send_message(channel, "Ok, the dumb cunt known as {} thinks its funny to send messages a bunch. Well WOOPTY DOO. NOBODY GIVES AN OUNCE OF A SHIT YOU WORTHLESS CUNT, BURN AND FUCK RIGHT OFF. {} isn't even that high anyway. pussy.".format(user.mention, end_level))
+
 
 @client.event
 async def on_reaction_add(reaction, user):
