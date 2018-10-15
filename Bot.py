@@ -42,7 +42,7 @@ async def on_message(message):
 	await update_level(users, message.author, message.channel)
 	with open('members.json', 'w') as f:
 		json.dump(users, f)
-	client.process_message(message)
+	client.process_commands(message)
 
 async def get_logs_from(channel):
 	f = open("tdata.txt", "a")
