@@ -46,16 +46,6 @@ async def on_member_join(member):
 	with open('members.json', 'w') as f:
 		json.dump(users, f)
 
-@client.event
-async def on_message(message):
-	with open('members.json', 'r') as f:
-		users = json.load(f)
-	await update_json(users, message.author)
-	await add_exp(users, message.author, 5)
-	await update_level(users, message.author, message.channel)
-	with open('members.json', 'w') as f:
-		json.dump(users, f)
-
 async def update_json(users, user):
 	if not user.id in users:
 		users[user.id] = {}
@@ -232,6 +222,16 @@ async def magic_eight_ball(ctx, msg):
 @client.command(pass_context=True, name='pm')
 async def change_playing_message(ctx, *msg):
 	await client.change_presence(game=discord.Game(name=" ".join(msg)))
+
+@client.event
+async def on_message(message):
+	with open('members.json', 'r') as f:
+		users = json.load(f)
+	await update_json(users, message.author)
+	await add_exp(users, message.author, 5)
+	await update_level(users, message.author, message.channel)
+	with open('members.json', 'w') as f:
+		json.dump(users, f)
 
 @client.event
 async def on_ready():
