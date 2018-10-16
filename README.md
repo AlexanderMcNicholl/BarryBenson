@@ -1,5 +1,5 @@
 # BarryBenson
-A discord bot that utilises the World of Warcraft API to display information about characters and guilds. 
+A discord bot that utilises the World of Warcraft API to display information about characters and guilds. Using information gathered from the blizard API, Barry Benson constructs embeds that display user information and profession data about world of warcraft characters. 
 
 # Invite to server
 [Invite Link](https://discordapp.com/oauth2/authorize?&client_id=486395215859679265&scope=bot&permissions=0)
@@ -14,8 +14,11 @@ The ```$stat [playername] [player realm]``` command will display player infromat
 ## Usage
 ```
 $prof [playername] [realm]
-```
+```/
 Display player profession information along with a thumbnail image of the player. 
 > Displays latest profession information from blizard API.
 
 ![Example Image](images/PROF_EXAMPLE.PNG)
+
+# Future Updates
+* Full Auction House Implementation.
