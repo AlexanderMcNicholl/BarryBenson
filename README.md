@@ -14,7 +14,7 @@ The ```$stat [playername] [player realm]``` command will display player infromat
 ## Usage
 ```
 $prof [playername] [realm]
-```/
+```
 Display player profession information along with a thumbnail image of the player. 
 > Displays latest profession information from blizard API.
 
