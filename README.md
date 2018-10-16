@@ -6,6 +6,7 @@ A discord bot that utilises the World of Warcraft API to display information abo
 
 # World of Warcraft Statistics
 The ```$stat [playername] [player realm]``` command will display player infromation such as player level, race, honorable kills, achievement points and race along with an image of the player.
+> Uses Blizzard api to get latest player information data dump and creates an imbed displaying player information along with a rendered image.
 
 ![Example Image](images/STAT_EXAMPLE.png)
 
