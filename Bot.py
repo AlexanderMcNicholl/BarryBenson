@@ -104,6 +104,16 @@ async def user_poll(ctx, *msg):
 	await client.add_reaction(bot_message, "✅")
 	await client.add_reaction(bot_message, "❎")
 
+@client.command(name='level')
+async def show_player_level(msg):
+	with open('members.json', 'r') as f:
+		users = json.load(f)
+	user = msg.author
+	current_user = users[user.id]
+	current_user_level = current_user['level']
+	await client.say('{} Is level {}'.format(user.mention, current_user_level))
+
+
 @client.command(pass_context=True, name='stat')
 async def get_character_info(ctx, *msg):
 	await client.say("Fetching character information for {}".format(msg[0]))
